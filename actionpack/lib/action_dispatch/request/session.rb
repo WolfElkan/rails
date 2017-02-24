@@ -179,6 +179,17 @@ module ActionDispatch
         end
       end
 
+      def start kwargs
+        kwargs.to_a.each do |kwarg| 
+          @key = kwarg[0]
+          @val = kwarg[1]
+          if self[@key] == nil
+            self[@key] = @val
+          end
+        end
+        self
+      end
+      
       def exists?
         return @exists unless @exists.nil?
         @exists = @by.send(:session_exists?, @req)
